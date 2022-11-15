@@ -1,0 +1,23 @@
+div#menu{
+    padding: 1.88em;
+    float: left;
+    background-color: cadetblue;
+}
+.fontst{
+    font-size: 18pt;
+}
+.lisaform{
+    height:30px;
+    margin-top: 2%;
+}
+div#sisu{
+    padding: 1.88em;
+    margin-left: 3%;
+    float: left;
+    border-left: solid 2pt black;
+    background-color: blanchedalmond;
+}
+img{
+    width: 300px;
+    height: 500px;
+}
