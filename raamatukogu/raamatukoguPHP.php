@@ -29,7 +29,7 @@ if (isset($_REQUEST["kustuta"])){
     <ul class="fontst">
         <?php
         //tabeli sisu näitamine
-        $paring=$yhendus->prepare("SELECT raamatuID, raamatuNimi,autor,kirjutamiseAasta,trukkikodaID,pilt FROM raamatu");
+        $paring=$yhendus->prepare("SELECT raamatuID, raamatuNimi,autor,kirjutamiseAasta,trukkikoda.trukkikoda,pilt FROM raamatu,trukkikoda where raamatu.trukkikodaID = trukkikoda.trukkikodaID");
         $paring->bind_result($raamatuID, $raamatuNimi,$autor,$kirjutamiseAasta,$trukkikodaID,$pilt);
         $paring->execute();
         while($paring->fetch()){
@@ -42,7 +42,7 @@ if (isset($_REQUEST["kustuta"])){
 <div id="sisu">
     <?php
     if (isset($_REQUEST["id"])){
-        $paring=$yhendus->prepare("SELECT raamatuID, raamatuNimi,autor,kirjutamiseAasta,trukkikodaID,pilt FROM raamatu WHERE raamatuID=?");
+        $paring=$yhendus->prepare("SELECT raamatuID, raamatuNimi,autor,kirjutamiseAasta,trukkikoda.trukkikoda,pilt FROM raamatu,trukkikoda WHERE raamatuID=? and raamatu.trukkikodaID = trukkikoda.trukkikodaID");
         $paring->bind_param("i", $_REQUEST["id"]);
         $paring->bind_result($raamatuID, $raamatuNimi,$autor,$kirjutamiseAasta,$trukkikodaID,$pilt);
         $paring->execute();
@@ -64,8 +64,9 @@ if (isset($_REQUEST["kustuta"])){
         echo '<input type="text" name="raamatuNimi" class="lisaform" placeholder="Raamatu nimi"><br>';
         echo '<input type="text" name="autor" class="lisaform" placeholder="Raamatu autor"><br>';
         echo '<input type="number" name="kirjutamiseAasta" class="lisaform" placeholder="kirjutamise Aasta"><br>';
-        echo '<input type="number" name="trukkikodaID" class="lisaform" min="1" max="2"><br>';
-        echo '<label for="trukkikodaID">Vali trukkikoda<br>1 - PromoPrint<br>2 - Tartu trukkikoda<br>';
+        echo '<input type="text" name="pilt" class="lisaform" placeholder="Pilt"><br>';
+        echo '<input type="hidden" name="trukkikodaID" class="lisaform" min="1" max="1" value="1"><br>';
+        echo '<label for="trukkikodaID"><br>';
         echo '<input type="submit" value="OK">';
         echo '</form>';
     }
